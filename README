@@ -69,3 +69,31 @@ Yes.
 
 So now... when I move.. (keypress or mouse click), what message do I send to the server?
 
+#in main.js
+  
+  	document.addEventListener('mousemove', 		app.mousemove, false);
+	document.addEventListener('mousedown', 		app.mousedown, false);
+	document.addEventListener('mouseup',			app.mouseup, false);
+
+app.keydown sets model's momentum to maximum momentum, and key up sets it to zero.
+
+what happens when you make a change to the model?
+
+#well there is the ability to send messages here:
+	app.sendMessage = function(msg) {
+	  
+	  if (messageQuota>0) {
+	    messageQuota--;
+	    webSocketService.sendMessage(msg);
+	  }
+	  
+	}
+
+#around line 104 so look for sendMessage to see if we are sending messages when we move
+
+#around line 30 we have this:
+
+		if(model.userTadpole.age % 6 == 0 && model.userTadpole.changed > 1 && webSocketService.hasConnection) {
+			model.userTadpole.changed = 0;
+			
+#looks like we update the server our local traveled coordinates if it was a significant distance	

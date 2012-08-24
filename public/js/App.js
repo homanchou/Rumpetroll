@@ -97,6 +97,7 @@ var App = function(aSettings, aCanvas) {
 	app.onSocketMessage = function(e) {
 		try {
 			var data = JSON.parse(e.data);
+            console.log('receiving:' + JSON.stringify(data));
 			webSocketService.processMessage(data);
 		} catch(e) {}
 	};
@@ -106,7 +107,8 @@ var App = function(aSettings, aCanvas) {
 	  if (messageQuota>0) {
 	    messageQuota--;
 	    webSocketService.sendMessage(msg);
-	  }
+	    console.log('sending msg' + msg);
+      }
 	  
 	}
 	
