@@ -32,3 +32,40 @@ oauth-ruby	http://oauth.rubyforge.org/, http://github.com/oauth/oauth-ruby
 MongoDB		http://mongodb.org, http://github.com/mongodb/mongo-ruby-driver
 em-mongo	http://github.com/bcg/em-mongo
 oauth-ruby	http://oauth.rubyforge.org/, http://github.com/oauth/oauth-ruby
+
+Main action starts in main.js - instantiates App and binds eventlisteners to methods of App, disable default select on body
+
+   var settings = new Settings();
+
+	app = new App(settings, document.getElementById('canvas'));
+
+  it also creates a setInterval "loop" running every 30 ms to update the view.
+	setInterval(runLoop,30);
+  var runLoop = function() {
+  	app.update();
+	app.draw();
+  }
+
+
+app.js in constructor:
+    instanteates model, canvas, context, websocket, mouse, keyNav, etc.
+  	webSocket 				= new WebSocket( model.settings.socketServer );
+	
+		model = new Model();
+		model.settings = aSettings;
+
+    var App = function(aSettings, aCanvas) { 
+
+      ... so what were the settings passed in?
+
+Settings.js
+var Settings = function() {
+  this.socketServer = 'ws://rumpetroll.motherfrog.com:8180';
+}
+
+so to run this locally... change this to local host where em is running?
+
+Yes.
+
+So now... when I move.. (keypress or mouse click), what message do I send to the server?
+

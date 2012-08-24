@@ -65,7 +65,8 @@ begin
     	  end         
   	  }  	  
   	end
-    
+    puts "Server started at #{HOST}:#{PORT}."
+ 
   	Syslog.notice "Server started at #{HOST}:#{PORT}."
   end 
 
