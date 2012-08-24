@@ -91,9 +91,19 @@ what happens when you make a change to the model?
 
 #around line 104 so look for sendMessage to see if we are sending messages when we move
 
-#around line 30 we have this:
+#around line 30, within update interval we have this:
 
 		if(model.userTadpole.age % 6 == 0 && model.userTadpole.changed > 1 && webSocketService.hasConnection) {
 			model.userTadpole.changed = 0;
-			
-#looks like we update the server our local traveled coordinates if it was a significant distance	
+     		webSocketService.sendUpdate(model.userTadpole);
+		}
+
+#looks like we update the server our local traveled coordinates if it was a significant distance
+            
+every time we move we broadcast our moment to everyone
+we start moving with some momentum and giggling as soon as we arrive
+if i arrive AFTER some existing peeps, i don't see them if they haven't moved in a while because they are not broadcasting
+    messages are broadcast as type "message"
+    "update" message update x,y coordiante as well as some vector
+    receiving:{"type":"update","id":12,"angle":2.459,"momentum":0.038,"x":-10.3,"y":-39.4,"life":1,"name":"Guest 12","authorized":false} 
+    receiving:{"type":"message","id":12,"message":"what is up"} 	
